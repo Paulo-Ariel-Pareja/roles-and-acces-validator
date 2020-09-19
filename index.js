@@ -19,7 +19,7 @@ app.use(validBody.validateBodyContentMiddleware, authMiddleware.authz(async () =
 }));
 
 app.post('/', (req, res) => {
-  res.send('Hello World!')
+  res.status(200).json({ message: "guaranteed access" });
 })
 
 app.listen(port, () => {
