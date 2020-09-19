@@ -1,4 +1,4 @@
-# roles-and-acces-validator
+# roles-and-access-validator
 Api simple para validacion de acceso a un recurso mediante reglas de Casbin
 
 ### Dependencias
