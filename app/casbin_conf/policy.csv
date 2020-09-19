@@ -1,0 +1,2 @@
+p, localhost, admin, /*, GET
+p, localhost, unPermiso, /*, GET
