@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"role\":[\"admin\"],\r\n    \"access\":[\"unPermiso\"],\r\n    \"hostname\":\"localhost\"\r\n}",
+					"raw": "{\r\n    \"role\":[\"admina\"],\r\n    \"access\":[\"unPermiso\"],\r\n    \"hostname\":\"localhost\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

@@ -9,19 +9,39 @@ class BasicAuthorizer {
     getUserAccess() {
         return this.req.body.access;
     }
-    getDomain(){
-        return this.req.body.hostname;
+    getMethod() {
+        return this.req.body.method;
+    }
+    getPath() {
+        return this.req.body.path;
     }
     async checkPermission() {
-        const { req, enforcer } = this;
-        const { path, method } = req;
-        const domain = this.getDomain();
+        const { enforcer } = this;
+        const pathSend = this.getPath();
+        const method = this.getMethod();
         const userRole = this.getUserRole();
+        const hasRole = await iteraEnElementos(enforcer, userRole, pathSend, method);
         const userAccess = this.getUserAccess();
-        const hasRole = await enforcer.enforce(domain, userRole, path, method);
-        const hasAccess = await enforcer.enforce(domain, userAccess, path, method);
+        const hasAccess = await iteraEnElementos(enforcer, userAccess, pathSend, method);
         const canDo = hasRole || hasAccess ? true : false
         return canDo
     }
 }
 exports.BasicAuthorizer = BasicAuthorizer;
+
+const iteraEnElementos = async (enforcer, sub, obj, act) => {
+    let encontrado = false;
+    let promesas = [];
+    sub.forEach(element => {
+        promesas.push(enforcer.enforce(element, obj, act));
+    });
+    await Promise.all(promesas).then(values => {
+        const canAccess = values.filter(resp => {
+            return resp === true;
+        })
+        if (canAccess.length > 0) encontrado = true;
+    }, reason => {
+        encontrado = false;
+    });
+    return encontrado;
+}
