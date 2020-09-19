@@ -21,10 +21,9 @@ class BasicAuthorizer {
         const method = this.getMethod();
         const userRole = this.getUserRole();
         const hasRole = await iteraEnElementos(enforcer, userRole, pathSend, method);
+        if (hasRole === true) return true;
         const userAccess = this.getUserAccess();
-        const hasAccess = await iteraEnElementos(enforcer, userAccess, pathSend, method);
-        const canDo = hasRole || hasAccess ? true : false
-        return canDo
+        return await iteraEnElementos(enforcer, userAccess, pathSend, method);
     }
 }
 exports.BasicAuthorizer = BasicAuthorizer;
