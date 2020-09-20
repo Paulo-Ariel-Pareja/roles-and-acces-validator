@@ -4,16 +4,16 @@ class BasicAuthorizer {
         this.enforcer = enforcer;
     }
     getUserRole() {
-        return this.req.body.role;
+        return this.req.allow.role;
     }
     getUserAccess() {
-        return this.req.body.access;
+        return this.req.allow.access;
     }
     getMethod() {
-        return this.req.body.method;
+        return this.req.allow.method;
     }
     getPath() {
-        return this.req.body.path;
+        return this.req.allow.path;
     }
     async checkPermission() {
         const { enforcer } = this;
